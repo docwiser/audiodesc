@@ -1,0 +1,7 @@
+__pycache*
+outputs*
+data*
+venv
+.env
+*.mp4
+*.mp3

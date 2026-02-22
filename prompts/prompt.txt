@@ -1,0 +1,121 @@
+Analyze the provided video thoroughly and generate a comprehensive, production-ready audio description track.
+
+## CRITICAL: Timestamp Format
+
+ALL timestamps MUST use the format: MM:SS
+- MM = total minutes (no hour component, can be 2 or 3+ digits)
+- SS = seconds within that minute, always exactly 2 digits
+
+Examples:
+  0:04     → 4 seconds into the video
+  1:30     → 1 minute 30 seconds
+  34:03    → 34 minutes 3 seconds
+  129:45   → 2 hours 9 minutes 45 seconds (expressed as total minutes)
+
+DO NOT use HH:MM:SS format. DO NOT use colons for hours.
+A 4-minute video has timestamps from 0:00 to 4:00.
+A 90-minute film has timestamps from 0:00 to 90:00.
+
+## Your Analysis Tasks
+
+### Step 1: Video Analysis
+Carefully watch and analyze the entire video, identifying:
+- All dialogue gaps and silences where description can be inserted
+- Key visual events, character actions, and scene changes
+- Text overlays, title cards, and on-screen text
+- Audio landscape: music, sound effects, ambient sound, dialogue
+- Pacing and rhythm of the content
+- Genre and target audience (affects description style)
+
+### Step 2: Gap Detection
+For each potential description slot, identify:
+- Precise start time in MM:SS format (e.g., 1:04 for 1 minute 4 seconds)
+- Precise end time in MM:SS format
+- Available duration in seconds
+- Audio context at that moment (silence / music / ambient / near-dialogue)
+
+### Step 3: Content Prioritization
+Rank what needs describing based on narrative importance. Ask yourself:
+- Would a blind viewer miss critical plot information without this description?
+- Is this visual element explained elsewhere (dialogue, sound)?
+- How much time is available vs. how much text would be spoken?
+
+### Step 4: Description Writing
+For each slot, write description text that:
+- Fits naturally when spoken at a comfortable pace (approx. 130-150 words per minute)
+- Uses present tense, active voice
+- Starts immediately — no filler phrases like "We see..." or "The camera shows..."
+- Identifies characters by name (after first appearance) or descriptive identifier
+
+### Step 5: Audio Mixing Recommendations
+For EACH description, specify:
+- videoVolumePercent: How much to reduce video audio during description (0-100)
+- descriptionVolumePercent: How loud the description audio should be (usually 100)
+- fadeInMs: Milliseconds to fade video audio down before description (typically 200-500ms)
+- fadeOutMs: Milliseconds to fade video audio back up after description (typically 300-500ms)
+
+### Step 6: TTS Guidance
+For each description, recommend:
+- speechRateModifier: percentage modifier (-20% to +15%)
+  - Slower for complex visuals or emotional moments
+  - Slightly faster for action sequences where time is tight
+
+## Output Schema Requirements
+
+You MUST output a JSON object with this EXACT structure.
+All timestamps use MM:SS format (no hours component).
+
+```json
+{
+  "videoMetadata": {
+    "title": "string",
+    "totalDurationSeconds": 0,
+    "genre": "string",
+    "targetAudience": "string",
+    "contentWarnings": [],
+    "audioLandscape": "string",
+    "descriptionStyle": "string",
+    "analysisNotes": "string"
+  },
+  "descriptions": [
+    {
+      "id": "desc_001",
+      "startTime": "MM:SS",
+      "endTime": "MM:SS",
+      "durationSeconds": 0,
+      "format": "standard",
+      "priority": "high",
+      "descriptionText": "string",
+      "estimatedSpeechDurationSeconds": 0,
+      "fitsInGap": true,
+      "videoVolumePercent": 70,
+      "descriptionVolumePercent": 100,
+      "fadeInMs": 300,
+      "fadeOutMs": 400,
+      "speechRateModifier": "+0%",
+      "audioContext": "soft_music",
+      "visualCategory": "action",
+      "narrativePriority": 1,
+      "notes": "string"
+    }
+  ],
+  "productionSummary": {
+    "totalDescriptions": 0,
+    "totalDescriptionDurationSeconds": 0,
+    "coveragePercent": 0,
+    "criticalGapsCovered": true,
+    "recommendedTTSVoice": "string",
+    "recommendedSpeechRate": "string",
+    "mixingNotes": "string",
+    "qualityFlags": []
+  }
+}
+```
+
+## Critical Rules
+1. Timestamps MUST be MM:SS format — never HH:MM:SS
+2. Descriptions must NOT overlap with each other
+3. No description may start before its gap begins or end after its gap closes
+4. estimatedSpeechDurationSeconds must always be ≤ durationSeconds
+5. videoVolumePercent must be between 0 and 100
+6. Output ONLY the JSON — no explanations, no markdown, no extra text

@@ -1,0 +1,30 @@
+# ============================================================
+# AudioDesc - AI-Powered Audio Description Generator
+# requirements.txt
+# ============================================================
+
+# Google Gemini AI SDK
+google-genai>=1.0.0
+
+# TTS Engines
+gTTS>=2.5.1
+edge-tts>=6.1.9
+
+# Audio/Video Processing
+moviepy>=1.0.3
+pydub>=0.25.1
+ffmpeg-python>=0.2.0
+
+# Utilities
+pydantic>=2.0.0
+rich>=13.7.0          # Beautiful CLI output
+questionary>=2.0.0    # Interactive CLI prompts
+python-dotenv>=1.0.0  # .env support for API key
+aiofiles>=23.0.0      # Async file I/O for edge-tts
+# asyncio is built into Python 3.10+ — no install needed
+
+# Export / Packaging
+Pillow>=10.0.0        # Image support (thumbnails, etc.)
+
+# Standard library deps (no install needed, listed for clarity)
+# json, os, uuid, datetime, zipfile, pathlib, asyncio
