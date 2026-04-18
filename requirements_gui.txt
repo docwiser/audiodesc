@@ -1,0 +1,32 @@
+# ============================================================
+# AudioDesc GUI — requirements.txt
+# ============================================================
+
+# GUI framework (wxPython — screen-reader accessible)
+wxPython>=4.2.0
+
+# Google Gemini AI SDK
+google-genai>=1.0.0
+
+# TTS Engines
+gTTS>=2.5.1
+edge-tts>=6.1.9
+
+# Audio/Video Processing
+moviepy>=1.0.3
+pydub>=0.25.1
+ffmpeg-python>=0.2.0
+
+# Utilities
+pydantic>=2.0.0
+rich>=13.7.0
+questionary>=2.0.0
+python-dotenv>=1.0.0
+aiofiles>=23.0.0
+
+# Optional premium TTS
+# elevenlabs>=1.0.0
+# openai>=1.0.0
+
+# Export
+Pillow>=10.0.0
